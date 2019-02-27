@@ -4,7 +4,7 @@ import time
 mid='21538'
 ti=0
 twicket=0
-tover=0
+tover=4
 s=["1","2","3","4","5","6","7","8","9","10"]
 
 while 1:
