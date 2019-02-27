@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup as bs
 import time
 mid='21538'
 ti=0
-twicket=0
-tover=4
+twicket=1
+tover=1
 s=["1","2","3","4","5","6","7","8","9","10"]
 
 while 1:
