@@ -1,21 +1,12 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-mid='21537'
-ti=1
-twicket=3
-tover=12
+mid='21538'
+ti=0
+twicket=0
+tover=0
 s=["1","2","3","4","5","6","7","8","9","10"]
-'''ur='http://mapps.cricbuzz.com/cbzios/match/21648/watch-mini-commentary.json'
-#ur='http://mapps.cricbuzz.com/cbzios/match/21537/leanback.json'
-source=requests.get(ur)
-data = source.json()
-#print(type(data))
-#print(data) 
-score=data["comm_lines"][0]["score"]
-wicket=data["comm_lines"][0]["wkts"]
-print(wicket)
-'''
+
 while 1:
     ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
     try:
