@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-mid='21538'
+mid='21533'
 ti=0
 twicket=1
 tover=1
@@ -15,13 +15,24 @@ while 1:
         score=int(data["comm_lines"][0]["score"])
         wicket=int(data["comm_lines"][0]["wkts"])
         over=float(data['bat_team']['innings'][0]['overs'])
+        batname0=data['batsman'][0]['name']
+        batname1=data['batsman'][1]['name']
+        bat0score=data['batsman'][0]['r']
+        bat1score=data['batsman'][1]['r']
+        bat0strike=data['batsman'][0]['strike']
+        bat1strike=data['batsman'][1]['strike']
+        bat0ball=data['batsman'][0]['b']
+        bat1ball=data['batsman'][1]['b']
+
         s1=data["comm_lines"][0]["score"]+'/'+data["comm_lines"][0]["wkts"]
         s2=data['bat_team']['innings'][0]['overs']
-        s3=''
+        s3=batname0+bat0strike+"("+bat0score+"-"+bat0ball+")"+"  "#+batname1+bat1strike+"("+bat1score+"-"+bat1ball+")"
+
         iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
         requests.get(iurl)
         print(over)
         print(score)
+
         if over==tover:
             str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']
             url='https://api.telegram.org/bot452373832:AAGauK8mHnS_H401kn5887JwCTGZo_MhM80/sendMessage?chat_id=582942300&text=hey'+str
