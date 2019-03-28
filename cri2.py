@@ -4,7 +4,12 @@ import time
 mid='22402'
 
 mid=input('Enter mid')
-
+ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
+try:
+    source=requests.get(ur)
+    data = source.json()
+except:
+    print("An exception occurred requesting")
 ti=0
 
 twicket=1
@@ -16,7 +21,7 @@ except:
 
 tover=1
 try:
-    tover=int(data['bat_team']['innings'][0]['overs'])
+    tover=int(float(data['bat_team']['innings'][0]['overs']))
     tover=tover+1
 except:
     print("An exception occurred fetching tover")
@@ -66,7 +71,7 @@ while 1:
             s3=data['prev_overs']
             iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
-            tover=tover+3
+            tover=tover+1
             time.sleep(10)
             
         if wicket==twicket:
