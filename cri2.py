@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-mid='22396'
+mid='22398'
 ti=0
 twicket=1
 tover=1
@@ -15,7 +15,6 @@ while 1:
     try:
         source=requests.get(ur)
         data = source.json()
-        print(data)
         try:
             score=int(data["comm_lines"][0]["score"])
             wicket=int(data["comm_lines"][0]["wkts"])
@@ -51,7 +50,7 @@ while 1:
             s3=data['prev_overs']
             iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
-            tover=tover+1
+            tover=tover+3
             time.sleep(10)
             
         if wicket==twicket:
