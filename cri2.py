@@ -1,10 +1,26 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-mid='22398'
+mid='22402'
+
+mid=input('Enter mid')
+
 ti=0
+
 twicket=1
+try:
+    twicket=int(data["comm_lines"][0]["wkts"])
+    twicket=twicket+1
+except:
+    print("An exception occurred fetching twkt")
+
 tover=1
+try:
+    tover=int(data['bat_team']['innings'][0]['overs'])
+    tover=tover+1
+except:
+    print("An exception occurred fetching tover")
+
 wicket=0
 over=0
 score=0
@@ -43,7 +59,7 @@ while 1:
 
         if over==tover:
             str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']
-            url='https://api.telegram.org/bot452373832:AAGauK8mHnS_H401kn5887JwCTGZo_MhM80/sendMessage?chat_id=582942300&text=hey'+str
+            url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
             requests.get(url)
             s1=data["comm_lines"][0]["score"]+'/'+data["comm_lines"][0]["wkts"]
             s2=data['bat_team']['innings'][0]['overs']
@@ -56,7 +72,7 @@ while 1:
         if wicket==twicket:
             print(wicket)
             str="wicket "+s[twicket-1]+" "+data['last_wkt_name']+" "+data['last_wkt_score']+" B: "+data['bowler'][0]['name']
-            url='https://api.telegram.org/bot452373832:AAGauK8mHnS_H401kn5887JwCTGZo_MhM80/sendMessage?chat_id=582942300&text=hey'+str
+            url='https://api.telegram.org/bot831624998:AAFUKPiuCHJkO4kf75UHPbgMpN8M9yDo9ns/sendMessage?chat_id=582942300&text=hey'+str
             source=requests.get(url)
             s1=str
             s2=''
