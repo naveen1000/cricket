@@ -22,7 +22,7 @@ except:
 tover=1
 try:
     tover=int(float(data['bat_team']['innings'][0]['overs']))
-    #tover=tover+1
+    tover=tover+1
 except:
     print("An exception occurred fetching tover")
 
