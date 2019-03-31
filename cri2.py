@@ -63,14 +63,14 @@ while 1:
             print("An exception occurred fetching score")
 
         if over==tover:
-            str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs'].split("|")[2]+" \n"+data['bowler'][0]['name']
+            str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']#.split("|")[2]+" \n"+data['bowler'][0]['name']
             url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
             requests.get(url)
             s1=data["comm_lines"][0]["score"]+'/'+data["comm_lines"][0]["wkts"]
             s2=data['bat_team']['innings'][0]['overs']
             s3=data['prev_overs']
-            s4=s3.split("|")[2]+" "+data['bowler'][0]['name']
-            iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s4
+            #s4=s3.split("|")[2]+" "+data['bowler'][0]['name']
+            iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
             tover=tover+1
             time.sleep(10)
