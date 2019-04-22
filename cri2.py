@@ -1,17 +1,26 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-mid='22402'
-
-mid=input('Enter mid')
+mid='0'
+notify=0
+mid=input('Enter mid\n')
 ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
+
+
+while True:
+    notify=input('Do you want notification for every over?(1/0)\n')
+    if(notify==0 or notify==1):
+        break;
+
+
 try:
     source=requests.get(ur)
     data = source.json()
 except:
     print("An exception occurred requesting")
 ti=0
-
+t50=0
+t100=0
 twicket=1
 try:
     twicket=int(data["comm_lines"][0]["wkts"])
@@ -63,9 +72,10 @@ while 1:
             print("An exception occurred fetching score")
 
         if over==tover:
-            str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']#.split("|")[2]+" \n"+data['bowler'][0]['name']
-            url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
-            requests.get(url)
+            if notify==1:
+                str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']#.split("|")[2]+" \n"+data['bowler'][0]['name']
+                url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
+                requests.get(url)
             s1=data["comm_lines"][0]["score"]+'/'+data["comm_lines"][0]["wkts"]
             s2=data['bat_team']['innings'][0]['overs']
             s3=data['prev_overs']
@@ -88,7 +98,7 @@ while 1:
             twicket=twicket+1
             time.sleep(10)
             
-        if score==50:
+        if ((score>50 and score<56) and t50==0):
             str="half_century:50"
             url='https://api.telegram.org/bot452373832:AAGauK8mHnS_H401kn5887JwCTGZo_MhM80/sendMessage?chat_id=582942300&text=hey'+str
             source=requests.get(url)
@@ -97,9 +107,10 @@ while 1:
             s3=''
             iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
+            t50=t50+1
             time.sleep(10)
             
-        if score==100:
+        if ((score>99 and score<106) and t100==0):
             str="century:100"
             url='https://api.telegram.org/bot452373832:AAGauK8mHnS_H401kn5887JwCTGZo_MhM80/sendMessage?chat_id=582942300&text=hey'+str
             source=requests.get(url)
@@ -108,6 +119,7 @@ while 1:
             s3=''
             iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
+            t100=t100+1
             time.sleep(10)            
       
     except:
