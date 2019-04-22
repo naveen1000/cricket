@@ -120,7 +120,10 @@ while 1:
             iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
             requests.get(iurl)
             t100=t100+1
-            time.sleep(10)            
+            time.sleep(10)   
+            
+            if over==20 or wicket==10:
+            exit()
       
     except:
         print("An exception occurred requesting") 
