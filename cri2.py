@@ -123,7 +123,7 @@ while 1:
             time.sleep(10)   
             
             if over==20 or wicket==10:
-            exit()
+                exit()
       
     except:
         print("An exception occurred requesting") 
