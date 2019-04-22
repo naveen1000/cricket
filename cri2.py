@@ -8,7 +8,7 @@ ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
 
 
 while True:
-    notify=input('Do you want notification for every over?(1/0)\n')
+    notify=int(input('Do you want notification for every over?(1/0)\n'))
     if(notify==0 or notify==1):
         break;
 
