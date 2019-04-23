@@ -4,6 +4,7 @@ mid='0'
 tnotify=0
 inotify=0
 mid=input('Enter mid\n')
+bow='NO'
 
 while True:
     tnotify=int(input('Do you want notification for every over?(1/0)\n'))
@@ -57,15 +58,14 @@ while 1:
             wicket=int(data["comm_lines"][0]["wkts"])
             over=float(data['bat_team']['innings'][0]['overs'])
             try:
-                batname0=data['batsman'][0]['name'][0:5]
-                batname1=data['batsman'][1]['name'][0:5]
+                batname0=data['batsman'][0]['name'][0:6]
+                batname1=data['batsman'][1]['name'][0:6]
                 bat0score=data['batsman'][0]['r']
                 bat1score=data['batsman'][1]['r']
-                bat0strike=data['batsman'][0]['strike']
-                bat1strike=data['batsman'][1]['strike']
                 bat0ball=data['batsman'][0]['b']
                 bat1ball=data['batsman'][1]['b']
-                s3=batname0+bat0strike+"("+bat0score+"-"+bat0ball+")"+batname1+bat1strike+"("+bat1score+"-"+bat1ball+")"
+                bowler=data['bowler'][0]['name']
+                s3=batname0+"("+bat0score+"-"+bat0ball+")"+batname1+"("+bat1score+"-"+bat1ball+")"
             except:
                 print("An exception occurred fetching batters")
             if inotify==1:
@@ -73,15 +73,17 @@ while 1:
                 s2=data['bat_team']['innings'][0]['overs']
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
-            print(over)
-            print(score)
+            print(str(score)+"/"+str(wicket)+" "+str(over)+" "+bowler)
             print(s3)
+            if over==1.5:
+                bow=bowler
+
         except:
             print("An exception occurred fetching score")
 
         if over==tover:
             if tnotify==1:
-                str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']
+                str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']+bow
                 url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
                 requests.get(url)
             if inotify==1:    
