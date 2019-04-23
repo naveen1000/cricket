@@ -1,4 +1,3 @@
-# cricket
-cricket
-ipl
+#cricke notifying app
+
 
