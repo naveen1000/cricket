@@ -17,8 +17,6 @@ while True:
 ti=0
 t50=0
 t100=0
-twicket=1
-tover=1
 wicket=0
 over=0
 score=0
@@ -26,28 +24,28 @@ s1='';s2='';s3='';
 s=["1","2","3","4","5","6","7","8","9","10"]
 ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
 
-def prefetch():
-    print("pre fetching")
-    try:
-        source=requests.get(ur)
-        data = source.json()
-    except:
-        print("An exception occurred requesting")
-        prefetch()
-    try:
-        twicket=int(data["comm_lines"][0]["wkts"])
-        twicket=twicket+1
-    except:
-        print("An exception occurred fetching twkt")
-        prefetch()
-    try:
-        tover=int(float(data['bat_team']['innings'][0]['overs']))
-        tover=tover+1
-    except:
-        print("An exception occurred fetching tover")
-        prefetch()
 
-prefetch()
+try:
+    source=requests.get(ur)
+    data = source.json()
+except:
+    print("An exception occurred prefetching")
+    exit()
+    
+try:
+    twicket=int(data["comm_lines"][0]["wkts"])
+    twicket=twicket+1
+except:
+    print("An exception occurred fetching twkt")
+    
+try:
+    tover=int(float(data['bat_team']['innings'][0]['overs']))
+    tover=tover+1
+except:
+    print("An exception occurred fetching tover")
+    
+
+
 while 1:
     ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
     try:
@@ -73,17 +71,21 @@ while 1:
                 s2=data['bat_team']['innings'][0]['overs']
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
-            print(str(score)+"/"+str(wicket)+" "+str(over)+" "+bowler)
-            print(s3)
-            if over==1.5:
-                bow=bowler
-
+            try:
+                print(data["comm_lines"][0]["score"]+"/"+data["comm_lines"][0]["wkts"]+" "+data['bat_team']['innings'][0]['overs']+" "+bowler)
+                print(s3)
+                if (over==(tover-1.0+0.5)):
+                    bow=bowler
+            except:
+                print("An exception occurred fetching bowlwer")
         except:
             print("An exception occurred fetching score")
-
+            
         if over==tover:
+            print("notified")
             if tnotify==1:
-                str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" \n"+data['prev_overs']+bow
+                print("notified")
+                str=data["comm_lines"][0]["score"]+" "+data['bat_team']['innings'][0]['overs']+" "+bow+" \n"+data['prev_overs']
                 url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str
                 requests.get(url)
             if inotify==1:    
@@ -93,7 +95,7 @@ while 1:
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
             tover=tover+1
-            time.sleep(10)
+            time.sleep(15)
             
         if wicket==twicket:
             print(wicket)
@@ -107,7 +109,7 @@ while 1:
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
             twicket=twicket+1
-            time.sleep(10)
+            time.sleep(15)
             
         if ((score>50 and score<56) and t50==0):
             str="half_century:50"
@@ -120,7 +122,7 @@ while 1:
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
             t50=t50+1
-            time.sleep(10)
+            time.sleep(12)
             
         if ((score>99 and score<106) and t100==0):
             str="century:100"
@@ -133,12 +135,12 @@ while 1:
                 iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
                 requests.get(iurl)
             t100=t100+1
-            time.sleep(10)   
+            time.sleep(12)   
             
         if (over==20 or wicket==10):
             exit()
       
     except:
         print("An exception occurred requesting") 
-    time.sleep(8)
+    time.sleep(10)
 
