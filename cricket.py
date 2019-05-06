@@ -9,18 +9,18 @@ bow='NO'
 while True:
     tnotify=int(input('Do you want notification for every over?(1/0)\n'))
     if(tnotify==0 or tnotify==1):
-        break;
+        break
 while True:
     inotify=int(input('Do you want to send data to IFTTT?(1/0)\n'))
     if(inotify==0 or inotify==1):
-        break;
+        break
 ti=0
 t50=0
 t100=0
 wicket=0
 over=0
 score=0
-s1='';s2='';s3='';
+s1='';s2='';s3=''
 s=["1","2","3","4","5","6","7","8","9","10"]
 ur='http://mapps.cricbuzz.com/cbzios/match/'+mid+'/leanback.json'
 

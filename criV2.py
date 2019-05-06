@@ -4,12 +4,12 @@ import time
 def finotify():
     s1=data["comm_lines"][0]["score"]+'/'+data["comm_lines"][0]["wkts"]
     s2=data['bat_team']['innings'][0]['overs']
-    iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2+'&value3='+s3
+    iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+s1+'&value2='+s2
     requests.get(iurl)
 
 def century(t):
     url='https://api.telegram.org/bot879982304:AAHG7ZRyEMWoQB-ToaiJBv_gMvkW-ekJcSg/sendMessage?chat_id=582942300&text=hey'+str2
-    source=requests.get(url)
+    requests.get(url)
     if inotify==1:
         iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+str2
         requests.get(iurl)
@@ -18,7 +18,7 @@ def century(t):
 def wick():
     str1="wicket "+" "+" "+data['last_wkt_name']+" "+data['last_wkt_score']+" B: "+data['bowler'][0]['name']
     url='https://api.telegram.org/bot831624998:AAFUKPiuCHJkO4kf75UHPbgMpN8M9yDo9ns/sendMessage?chat_id=582942300&text=hey'+str1
-    source=requests.get(url)
+    requests.get(url)
     if inotify==1:
         iurl='https://maker.ifttt.com/trigger/CricketScore/with/key/H9qCqfSIfI2WiwXhF2zZz?value1='+str1
         requests.get(iurl)
@@ -88,5 +88,5 @@ except:
 while 1:
     source=requests.get(ur)
     data = source.json()
-    main();
+    main()
     time.sleep(8)

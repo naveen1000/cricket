@@ -55,6 +55,10 @@ def send_commands(conn):
 
 
 def main():
+    hostname = socket.gethostname()    
+    IPAddr = socket.gethostbyname(hostname)    
+    print("Your Computer Name is:" + hostname)    
+    print("Your Computer IP Address is:" + IPAddr)    
     create_socket()
     bind_socket()
     socket_accept()
